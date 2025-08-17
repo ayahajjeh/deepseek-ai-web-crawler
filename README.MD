@@ -27,11 +27,24 @@ This project is a web crawler built with Python that extracts venue data (weddin
 
 ## Installation
 
+**Choose one of the following options:**
+
+### Option A: Using Conda
+
 1. **Create and Activate a Conda Environment**
 
    ```bash
    conda create -n deep-seek-crawler python=3.12 -y
    conda activate deep-seek-crawler
+   ```
+
+### Option B: Using Python venv
+
+1. **Create and Activate a Virtual Environment**
+
+   ```bash
+   python3 -m venv deep-seek-crawler
+   source deep-seek-crawler/bin/activate
    ```
 
 2. **Install Dependencies**
