@@ -24,8 +24,35 @@ def get_browser_config() -> BrowserConfig:
     # https://docs.crawl4ai.com/core/browser-crawler-config/
     return BrowserConfig(
         browser_type="chromium",  # Type of browser to simulate
-        headless=False,  # Whether to run in headless mode (no GUI)
+        headless=True,  # Whether to run in headless mode (no GUI) - sometimes less detectable
         verbose=True,  # Enable verbose logging
+        # Add stealth options to avoid detection
+        extra_args=[
+            "--disable-blink-features=AutomationControlled",
+            "--disable-dev-shm-usage",
+            "--no-sandbox",
+            "--disable-web-security",
+            "--disable-features=VizDisplayCompositor",
+            "--disable-extensions",
+            "--disable-plugins",
+            "--disable-images",
+            "--disable-javascript",
+            "--disable-background-timer-throttling",
+            "--disable-backgrounding-occluded-windows",
+            "--disable-renderer-backgrounding",
+            "--disable-background-networking",
+            "--disable-default-apps",
+            "--disable-sync",
+            "--disable-translate",
+            "--hide-scrollbars",
+            "--mute-audio",
+            "--no-first-run",
+            "--disable-background-timer-throttling",
+            "--disable-component-extensions-with-background-pages",
+            "--disable-ipc-flooding-protection",
+        ],
+        # Set a realistic user agent
+        user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     )
 
 
@@ -132,6 +159,9 @@ async def fetch_and_process_page(
             extraction_strategy=llm_strategy,  # Strategy for data extraction
             css_selector=css_selector,  # Target specific content on the page
             session_id=session_id,  # Unique session ID for the crawl
+            # Add content filtering to reduce size
+            word_count_threshold=100,  # Only process content with at least 100 words
+            only_text=True,  # Extract only text content
         ),
     )
 

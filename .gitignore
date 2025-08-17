@@ -1,3 +1,4 @@
 .env
+deep-seek-crawler/
 *.csv
 __pycache__
